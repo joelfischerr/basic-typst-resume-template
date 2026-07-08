@@ -10,7 +10,7 @@ Install this locally (instead of the official version) by running `just install-
 
 ## Sample Resume
 
-![example resume](https://raw.githubusercontent.com/stuxf/basic-typst-resume-template/main/thumbnail.png)
+![example resume](./thumbnail.png)
 
 ## Quick Start
 
