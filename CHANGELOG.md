@@ -1,4 +1,4 @@
-# Basic Resume Changelog
+# Basic CV with Photo Changelog
 
 ## v0.2.10
 

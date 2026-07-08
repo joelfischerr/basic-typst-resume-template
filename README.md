@@ -1,4 +1,4 @@
-# Basic Resume with photo
+# Basic CV with Photo
 
 <div align="center">Version 0.2.10</div>
 
@@ -17,7 +17,7 @@ Install this locally (instead of the official version) by running `just install-
 A barebones resume looks like this, which you can use to get started.
 
 ```typst
-#import "@preview/basic-resume:0.2.10": *
+#import "@preview/basic-cv-with-photo:0.2.10": *
 
 // Put your personal information here, replacing mine
 #let name = "Stephen Xu"
