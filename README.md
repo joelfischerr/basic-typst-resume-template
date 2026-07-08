@@ -1,4 +1,4 @@
-# Basic Resume
+# Basic Resume with photo
 
 <div align="center">Version 0.2.10</div>
 
