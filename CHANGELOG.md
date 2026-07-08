@@ -1,5 +1,11 @@
 # Basic Resume Changelog
 
+## v0.2.10
+
+- Fix em vs. en dashes [PR#40](https://github.com/stuxf/basic-typst-resume-template/pull/40)
+- Add option vertical personal info and profile photo
+- Add optional nationality text to personal info
+
 ## [v0.2.9](hhttps://github.com/stuxf/basic-typst-resume-template/releases/tags/v0.2.9)
 
 Make `lang` parameter configurable

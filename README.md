@@ -1,8 +1,8 @@
 # Basic Resume
 
-<div align="center">Version 0.2.9</div>
+<div align="center">Version 0.2.10</div>
 
-This is a template for a simple resume with an optional photo. The original template is taken from [stuxf](https://github.com/stuxf/basic-typst-resume-template) which in turn has taken inspiration from [Jake's Resume](https://github.com/jakegut/resume) and [guided-resume-starter-cgc](https://typst.app/universe/package/guided-resume-starter-cgc/). I hope this template can be useful to others as well.
+This is a template for a simple resume with an optional photo. The original template is taken from [stuxf](https://github.com/stuxf/basic-typst-resume-template) which in turn has taken inspiration from [Jake's Resume](https://github.com/jakegut/resume) and [guided-resume-starter-cgc](https://typst.app/universe/package/guided-resume-starter-cgc/). I hope this template can be useful to others as well. The original author does not seem to be taking pull requests anymore.
 
 This fork adds the option for a photo. Additionally, it contains [PR#40](https://github.com/stuxf/basic-typst-resume-template/pull/40) fixing the em dashes in the dates.
 
@@ -17,7 +17,7 @@ Install this locally (instead of the official version) by running `just install-
 A barebones resume looks like this, which you can use to get started.
 
 ```typst
-#import "@preview/basic-resume:0.2.9": *
+#import "@preview/basic-resume:0.2.10": *
 
 // Put your personal information here, replacing mine
 #let name = "Stephen Xu"
