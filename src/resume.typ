@@ -20,7 +20,6 @@
   lang: "en",
   body,
 ) = {
-
   // Sets document metadata
   set document(author: author, title: author)
 
@@ -31,18 +30,17 @@
     size: font-size,
     lang: lang,
     // Disable ligatures so ATS systems do not get confused when parsing fonts.
-    ligatures: false
+    ligatures: false,
   )
 
   // Reccomended to have 0.5in margin on all sides
   set page(
-    margin: (0.5in),
+    margin: 0.5in,
     paper: paper,
   )
 
   // Link styles
   show link: underline
-
 
   // Small caps for section titles
   show heading.where(level: 2): it => [
@@ -198,7 +196,7 @@
       if role == "" {
         [*#name* #if url != "" and dates != "" [ (#link("https://" + url)[#url])]]
       } else {
-        [*#role*, #name #if url != "" and dates != ""  [ (#link("https://" + url)[#url])]]
+        [*#role*, #name #if url != "" and dates != "" [ (#link("https://" + url)[#url])]]
       }
     },
     right: {
