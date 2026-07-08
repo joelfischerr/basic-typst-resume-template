@@ -11,6 +11,8 @@
 
 #show: resume.with(
   author: name,
+  jobtitle: "Software Engineer",
+  header: "horizontal",
   location: location,
   email: email,
   github: github,

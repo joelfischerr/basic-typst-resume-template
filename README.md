@@ -2,11 +2,15 @@
 
 <div align="center">Version 0.2.9</div>
 
-This is a template for a simple resume. It is intended to be used as a good starting point for quickly crafting a standard resume that will properly be parsed by ATS systems. Inspiration is taken from [Jake's Resume](https://github.com/jakegut/resume) and [guided-resume-starter-cgc](https://typst.app/universe/package/guided-resume-starter-cgc/). I'm currently a college student and was unable to find a Typst resume template that fit my needs, so I wrote my own. I hope this template can be useful to others as well.
+This is a template for a simple resume with an optional photo. The original template is taken from [stuxf](https://github.com/stuxf/basic-typst-resume-template) which in turn has taken inspiration from [Jake's Resume](https://github.com/jakegut/resume) and [guided-resume-starter-cgc](https://typst.app/universe/package/guided-resume-starter-cgc/). I hope this template can be useful to others as well.
+
+This fork adds the option for a photo. Additionally, it contains [PR#40](https://github.com/stuxf/basic-typst-resume-template/pull/40) fixing the em dashes in the dates.
+
+Install this locally (instead of the official version) by running `just install-preview`.
 
 ## Sample Resume
 
-![example resume](https://raw.githubusercontent.com/stuxf/basic-typst-resume-template/main/example-resume.png)
+![example resume](https://raw.githubusercontent.com/stuxf/basic-typst-resume-template/main/thumbnail.png)
 
 ## Quick Start
 
@@ -26,7 +30,7 @@ A barebones resume looks like this, which you can use to get started.
 
 #show: resume.with(
   author: name,
-  // All the lines below are optional. 
+  // All the lines below are optional.
   // For example, if you want to to hide your phone number:
   // feel free to comment those lines out and they will not show.
   location: location,
@@ -40,6 +44,12 @@ A barebones resume looks like this, which you can use to get started.
   paper: "us-letter",
   author-position: left,
   personal-info-position: left,
+  // Uncomment the lines below for a European-style CV header: your name,
+  // job title and contact info on the left, with a circular profile photo
+  // on the right.
+  // jobtitle: "Software Engineer",
+  // header: "vertical",
+  // profile-image: read("profile.jpg", encoding: none),
 )
 
 /*
@@ -77,3 +87,22 @@ A barebones resume looks like this, which you can use to get started.
 
 // ... more headers and stuff below
 ```
+
+## Profile Photo Header
+
+Setting `header: "vertical"` switches to a two-column header — name, job
+title and contact info on the left, with a circular profile photo on the
+right.
+
+```typst
+#show: resume.with(
+  author: name,
+  jobtitle: "Software Engineer",
+  header: "vertical",
+  profile-image: read("profile.jpg", encoding: none),
+  // ... the rest of your options
+)
+```
+
+`profile-image` defaults to `none` (no photo), and is only valid together
+with `header: "vertical"`.

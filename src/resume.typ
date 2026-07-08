@@ -2,10 +2,12 @@
 
 #let resume(
   author: "",
+  jobtitle: "",
   author-position: left,
   personal-info-position: left,
   pronouns: "",
   location: "",
+  nationality: "",
   email: "",
   github: "",
   linkedin: "",
@@ -18,8 +20,24 @@
   author-font-size: 20pt,
   font-size: 10pt,
   lang: "en",
+  header: "horizontal",
+  // Pass `read("your-photo.jpg", encoding: none)` (or `none`).
+  profile-image: none,
   body,
 ) = {
+  assert(
+    header in ("horizontal", "vertical"),
+    message: "header must be \"horizontal\" or \"vertical\", got: " + repr(header),
+  )
+  assert(
+    profile-image == none or header == "vertical",
+    message: "profile-image requires header: \"vertical\"",
+  )
+  assert(
+    profile-image == none or type(profile-image) == bytes,
+    message: "profile-image must be bytes, e.g. read(\"your-photo.jpg\", encoding: none)",
+  )
+
   // Sets document metadata
   set document(author: author, title: author)
 
@@ -42,12 +60,6 @@
   // Link styles
   show link: underline
 
-  // Small caps for section titles
-  show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: -10pt, [#smallcaps(it.body)])
-    #line(length: 100%, stroke: 1pt)
-  ]
-
   // Accent Color Styling
   show heading: set text(
     fill: rgb(accent-color),
@@ -67,9 +79,6 @@
     #pad(it.body)
   ]
 
-  // Level 1 Heading
-  [= #(author)]
-
   // Personal Info Helper
   let contact-item(value, prefix: "", link-type: "") = {
     if value != "" {
@@ -81,28 +90,83 @@
     }
   }
 
-  // Personal Info
-  pad(
-    top: 0.25em,
-    align(personal-info-position)[
-      #{
-        let items = (
-          contact-item(pronouns),
-          contact-item(phone, link-type: "tel:"),
-          contact-item(location),
-          contact-item(email, link-type: "mailto:"),
-          contact-item(github, link-type: "https://"),
-          contact-item(linkedin, link-type: "https://"),
-          contact-item(personal-site, link-type: "https://"),
-          contact-item(orcid, prefix: [#orcid-icon(color: rgb("#AECD54"))orcid.org/], link-type: "https://orcid.org/"),
-        )
-        items.filter(x => x != none).join("  |  ")
-      }
-    ],
+  let items = (
+    contact-item(pronouns),
+    contact-item(phone, link-type: "tel:"),
+    contact-item(location),
+    contact-item(nationality),
+    contact-item(email, link-type: "mailto:"),
+    contact-item(github, link-type: "https://"),
+    contact-item(linkedin, link-type: "https://"),
+    contact-item(personal-site, link-type: "https://"),
+    contact-item(orcid, prefix: [#orcid-icon(color: rgb("#AECD54"))orcid.org/], link-type: "https://orcid.org/"),
   )
+
+  if header == "horizontal" {
+    // Level 1 Heading
+    [= #(author)]
+    // Personal Info — the job title (if any) is folded into the same
+    // block as the contact line, so the gap between them matches the
+    // line spacing used in the vertical header. No extra top padding, so
+    // the gap after the name also matches the vertical header.
+    pad(
+      align(personal-info-position)[
+        #if jobtitle != "" [
+          #text(weight: 700, size: 1.2em, fill: rgb(accent-color))[#jobtitle] \
+        ]
+        #{
+          items.filter(x => x != none).join("  |  ")
+        }
+      ],
+    )
+  } else {
+    // Vertical case: name/contact info on the left, an optional profile
+    // photo on the right.
+    // The job title is folded into the same line-broken text flow as the
+    // contact info below (rather than being a heading) so the gap after it
+    // matches the gap between contact info lines instead of using heading
+    // block spacing.
+    let jobtitle-line = if jobtitle != "" {
+      text(weight: 700, size: 1.2em, fill: rgb(accent-color))[#jobtitle]
+    }
+    let lines = (jobtitle-line, ..items).filter(x => x != none)
+
+    let author-block = [
+      = #(author)
+      #lines.join("\n")
+    ]
+
+    if profile-image != none {
+      context {
+        // Match the photo's height to the text block next to it.
+        let photo-size = measure(author-block).height
+        grid(
+          columns: (1fr, photo-size),
+          column-gutter: 25pt,
+          author-block,
+          box(
+            width: photo-size,
+            height: photo-size,
+            radius: photo-size / 2,
+            clip: true,
+            stroke: 1pt + rgb(accent-color),
+            image(profile-image, width: photo-size, height: photo-size, fit: "cover"),
+          ),
+        )
+      }
+    } else {
+      author-block
+    }
+  }
 
   // Main body.
   set par(justify: true)
+
+  // Small caps for the remaining section titles
+  show heading.where(level: 2): it => [
+    #pad(top: 0pt, bottom: -10pt, [#smallcaps(it.body)])
+    #line(length: 100%, stroke: 1pt)
+  ]
 
   body
 }
