@@ -135,11 +135,9 @@
   start-date: "",
   end-date: "",
 ) = {
-  if start-date == "" {
-    end-date
-  } else {
-    start-date + " " + sym.dash.em + " " + end-date
-  }
+  // The original had an em dash here which imo doesn't look as good (may even be incorrect)
+  // There shouldn't be additional spaces either.
+  start-date + "--" + end-date
 }
 
 // Section components below
